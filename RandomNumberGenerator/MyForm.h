@@ -1,8 +1,9 @@
 #pragma once     //only open this file one during compilation
+#include <cstdlib>
+#include <time.h>
 
 namespace RandomNumberGenerator 
 {
-
 	using namespace System;
 	using namespace System::ComponentModel;
 	using namespace System::Collections;
@@ -11,7 +12,7 @@ namespace RandomNumberGenerator
 	using namespace System::Drawing;
 
 	/// <summary>
-	/// Summary for MyForm
+	/// MyForm is a random number generator with two buttons; generate and reset.
 	/// </summary>
 	public ref class MyForm : public System::Windows::Forms::Form     //defines a derived class named MyForm. The members of the class are the interface components.
 	{
@@ -163,7 +164,7 @@ namespace RandomNumberGenerator
 			this->pictureBox1->Image = (cli::safe_cast<System::Drawing::Image^>(resources->GetObject(L"pictureBox1.Image")));
 			this->pictureBox1->Location = System::Drawing::Point(12, 12);
 			this->pictureBox1->Name = L"pictureBox1";
-			this->pictureBox1->Size = System::Drawing::Size(110, 141);
+			this->pictureBox1->Size = System::Drawing::Size(110, 97);
 			this->pictureBox1->SizeMode = System::Windows::Forms::PictureBoxSizeMode::StretchImage;
 			this->pictureBox1->TabIndex = 9;
 			this->pictureBox1->TabStop = false;
@@ -172,7 +173,7 @@ namespace RandomNumberGenerator
 			// 
 			this->AutoScaleDimensions = System::Drawing::SizeF(8, 16);
 			this->AutoScaleMode = System::Windows::Forms::AutoScaleMode::Font;
-			this->ClientSize = System::Drawing::Size(491, 165);
+			this->ClientSize = System::Drawing::Size(491, 125);
 			this->Controls->Add(this->pictureBox1);
 			this->Controls->Add(this->button2);
 			this->Controls->Add(this->button1);
@@ -184,16 +185,48 @@ namespace RandomNumberGenerator
 			this->Controls->Add(this->label2);
 			this->Controls->Add(this->label1);
 			this->Name = L"MyForm";
-			this->Text = L"MyForm";
+			this->Text = L"Random Number Generator";
 			(cli::safe_cast<System::ComponentModel::ISupportInitialize^>(this->pictureBox1))->EndInit();
 			this->ResumeLayout(false);
 			this->PerformLayout();
 
 		}
+		//
+		//
+		//
+		//
+		//
+		//
+		//BUTTON CLICK HERE
+		//
+		//
 #pragma endregion
 	private: System::Void button1_Click(System::Object^  sender, System::EventArgs^  e)
 		{
-		}
+			//create an array called num, of 7 elements set to 0
+			int num[7] = { 0 };
+
+			//seed the array - need better definition of this
+			srand((int) time(0));
+
+			//randomize the array values
+			for (int i = 0; i < 7; i++)     //cycle through each element in the array
+				num[i] = (rand() % 99) + 1; //for each element, randomize the value by dividing a random number by 99 and keeping remainder
+			
+			// set the label text with random number
+			this->label1->Text = Convert::ToString(num[0]);
+			this->label2->Text = Convert::ToString(num[1]);
+			this->label3->Text = Convert::ToString(num[2]);
+			this->label4->Text = Convert::ToString(num[3]);
+			this->label5->Text = Convert::ToString(num[4]);
+			this->label6->Text = Convert::ToString(num[5]);
+			this->label7->Text = Convert::ToString(num[6]);
+			
+			// change the button states once you press GENERATE
+			this->button1->Enabled = false;
+			this->button2->Enabled = true;
+	
+	}
 	private: System::Void button2_Click(System::Object^  sender, System::EventArgs^  e)
 		{
 		//create label fields - set(this)->label(labelonform)->which section(text) to 0 since we're resetting everything
